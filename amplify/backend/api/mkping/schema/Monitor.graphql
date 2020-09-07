@@ -1,0 +1,47 @@
+enum MonitorStatus {
+  PENDING
+  UP
+  DOWN
+}
+
+enum MonitorSSLStatus {
+  PENDING
+  VALID
+  INVALID
+  EXPIRING_SOON
+}
+
+"""
+Monitors are individual pieces of the web system that are monitored.
+"""
+type Monitor @model {
+  """
+  ID of the monitor
+  """
+  id: ID!
+
+  """
+  Display name for the monitor
+  """
+  name: String!
+
+  """
+  URL of the monitor
+  """
+  url: String!
+
+  """
+  More detailed description for monitor
+  """
+  description: String
+
+  """
+  Status of monitor.
+  """
+  status: MonitorStatus!
+
+  """
+  SSL/TLS Status of monitor.
+  """
+  sslStatus: MonitorSSLStatus!
+}
