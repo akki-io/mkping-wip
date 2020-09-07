@@ -153,8 +153,7 @@ function getUser() {
         return null;
       }
     })
-    .catch(err => {
-      console.log(err);
+    .catch(() => {
       return null;
     });
 }

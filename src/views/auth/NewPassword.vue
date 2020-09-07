@@ -62,13 +62,11 @@ export default {
       this.$router.push({ name: "SignIn" });
     }
     this.user = user;
-    console.log(user);
   },
   data() {
     return {
       user: null,
       password: null,
-      errorMessage: null,
       loading: false,
       heading: "Create new password"
     };
@@ -82,7 +80,6 @@ export default {
   methods: {
     async completeNewPassword() {
       this.loading = true;
-      this.errorMessage = null;
       this.$v.$touch();
       if (!this.$v.$invalid) {
         await Auth.completeNewPassword(this.user, this.password)
@@ -90,8 +87,7 @@ export default {
             this.$router.push({ name: "AdminMonitors" });
           })
           .catch(error => {
-            this.errorMessage = error.message;
-            this.$toast(this.errorMessage);
+            this.$toast(error.message);
           });
       }
       this.loading = false;

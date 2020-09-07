@@ -17,7 +17,7 @@ Vue.use(Vuelidate);
 
 const options = {
   position: "bottom-left",
-  timeout: 5000,
+  timeout: 3000,
   closeOnClick: true,
   pauseOnFocusLoss: true,
   pauseOnHover: true,
