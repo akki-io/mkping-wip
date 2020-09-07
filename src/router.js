@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { Auth } from 'aws-amplify';
 import Router from "vue-router";
+import store from "./store";
 Vue.use(Router);
 
 const router = new Router({
@@ -10,25 +11,43 @@ const router = new Router({
       path: "/",
       name: "SignIn",
       meta: { redirectIfLoggedIn: true },
-      component: () => import(/* webpackChunkName: "SignIn" */ "./views/SignIn.vue")
+      component: () => import(/* webpackChunkName: "SignIn" */ "./views/auth/SignIn.vue")
     },
     {
       path: "/new-password",
       name: "NewPassword",
       meta: { redirectIfLoggedIn: true },
-      component: () => import(/* webpackChunkName: "NewPassword" */ "./views/NewPassword.vue")
+      component: () => import(/* webpackChunkName: "NewPassword" */ "./views/auth/NewPassword.vue")
+    },
+    {
+      path: "/forgot-password",
+      name: "ForgotPassword",
+      meta: { redirectIfLoggedIn: true },
+      component: () => import(/* webpackChunkName: "ForgotPassword" */ "./views/auth/ForgotPassword.vue")
+    },
+    {
+      path: "/forgot-password-submit",
+      name: "ForgotPasswordSubmit",
+      meta: { redirectIfLoggedIn: true },
+      component: () => import(/* webpackChunkName: "ForgotPasswordSubmit" */ "./views/auth/ForgotPasswordSubmit.vue")
     },
     {
       path: "/admin/monitors",
       name: "AdminMonitors",
       meta: { requiresAuth: true },
-      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/AdminMonitors.vue")
+      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/admin/monitors/List.vue")
+    },
+    {
+      path: "/admin/notifications",
+      name: "AdminNotifications",
+      meta: { requiresAuth: true },
+      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/admin/notifications/List.vue")
     },
     {
       path: "/logout",
       name: "Logout",
       meta: { requiresAuth: true },
-      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/Logout.vue")
+      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/auth/Logout.vue")
     },
     // {
     //   path: "/destination/:slug",
@@ -89,6 +108,7 @@ router.beforeResolve(async (to, from, next) => {
         name: "SignIn"
       });
     } else {
+      store.commit('setUser', user);
       next();
     }
   }

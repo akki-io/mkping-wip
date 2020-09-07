@@ -1,11 +1,11 @@
 <template>
-  <p>
-    asdasdsa
-  </p>
+<p>
+
+</p>
 </template>
 
 <script>
 export default {
-  name: "AdminMonitors"
+  name: "ForgotPasswordSubmit"
 }
 </script>

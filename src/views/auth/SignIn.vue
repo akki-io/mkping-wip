@@ -1,15 +1,6 @@
 <template>
-  <div class="min-h-screen bg-dark-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sign-in">
-      <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <img class="mx-auto h-16 w-auto" src="@/assets/logo-color.svg" alt="mkping">
-        <h2 class="mt-6 text-center text-3xl leading-9 text-white text-opacity-75">
-          Sign in to your account
-        </h2>
-      </div>
-      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-dark-700 py-8 px-4 shadow sm:rounded-sm sm:px-10">
-          <form @submit.prevent="signIn">
+  <auth-layout :heading="heading">
+    <form @submit.prevent="signIn">
             <div>
               <label for="email" class="mk-input-label">
                 Email address
@@ -38,9 +29,9 @@
               </div>
             </div>
             <div class="mt-3 text-xs text-right">
-              <a href="#" class="mk-link">
-                Forgot your password?
-              </a>
+               <router-link :to="{ name: 'ForgotPassword'}" class="mk-link">
+                 Forgot your password?
+               </router-link>
             </div>
             <div class="mt-6">
               <span class="block w-full rounded-sm shadow-sm">
@@ -50,25 +41,28 @@
               </span>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  </auth-layout>
 </template>
 
 <script>
   import { required, email } from 'vuelidate/lib/validators';
   import Spinner from "@/components/Spinner";
   import { Auth } from 'aws-amplify';
+  import AuthLayout from "@/layouts/AuthLayout";
 
   export default {
-    components: {Spinner},
+    name: "SignIn",
+    components: {
+      Spinner,
+      AuthLayout
+    },
     data() {
       return {
         email: null,
         password: null,
         errorMessage: null,
         loading: false,
+        heading: "Sign in to your account"
       }
     },
     validations: {

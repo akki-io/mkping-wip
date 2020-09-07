@@ -10,6 +10,7 @@ import Vuelidate from 'vuelidate'
 import store from "@/store";
 import Toast from "vue-toastification";
 import "@/assets/notification.css";
+import 'tabler-icons/iconfont/tabler-icons.css';
 
 Vue.config.productionTip = false
 Vue.use(Vuelidate)

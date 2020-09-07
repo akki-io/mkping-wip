@@ -6,6 +6,7 @@
 import { Auth } from 'aws-amplify';
 
 export default {
+  name: "Logout",
   created() {
     this.logout();
   },
@@ -13,6 +14,7 @@ export default {
     async logout() {
       await Auth.signOut({ global: true })
         .then(() => {
+          this.$toast('Signed out Successfully');
           this.$router.push({name: "SignIn"})
         });
     }

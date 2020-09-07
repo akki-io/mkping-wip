@@ -1,15 +1,6 @@
 <template>
-  <div class="min-h-screen bg-dark-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sign-in">
-      <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <img class="mx-auto h-16 w-auto" src="@/assets/logo-color.svg" alt="mkping">
-        <h2 class="mt-6 text-center text-3xl leading-9 text-white text-opacity-75">
-          Enter new password
-        </h2>
-      </div>
-      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-dark-700 py-8 px-4 shadow sm:rounded-sm sm:px-10">
-          <form @submit.prevent="completeNewPassword">
+  <auth-layout :heading="heading">
+    <form @submit.prevent="completeNewPassword">
             <div class="mt-6">
               <label for="password" class="mk-input-label">
                 New Password
@@ -31,12 +22,8 @@
                 </button>
               </span>
             </div>
-            <div class="mk-error mt-2" v-if="errorMessage"> {{ errorMessage }} </div>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  </auth-layout>
 </template>
 
 <script>
@@ -44,9 +31,14 @@
 import { Auth } from 'aws-amplify';
 import { required, minLength } from 'vuelidate/lib/validators';
 import Spinner from "@/components/Spinner";
+import AuthLayout from "@/layouts/AuthLayout";
 
 export default {
-  components: {Spinner},
+  name: "NewPassword",
+  components: {
+      Spinner,
+      AuthLayout
+    },
   mounted() {
     const user = this.$store.state.user;
     if (!user) {
@@ -64,6 +56,7 @@ export default {
       password: null,
       errorMessage: null,
       loading: false,
+      heading: "Create new password"
     }
   },
   validations: {
@@ -84,6 +77,7 @@ export default {
           })
           .catch(error => {
             this.errorMessage = error.message;
+            this.$toast(this.errorMessage);
           })
       }
       this.loading = false;
