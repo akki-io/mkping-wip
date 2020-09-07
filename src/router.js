@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Auth } from 'aws-amplify';
+import { Auth } from "aws-amplify";
 import Router from "vue-router";
 import store from "./store";
 Vue.use(Router);
@@ -11,43 +11,62 @@ const router = new Router({
       path: "/",
       name: "SignIn",
       meta: { redirectIfLoggedIn: true },
-      component: () => import(/* webpackChunkName: "SignIn" */ "./views/auth/SignIn.vue")
+      component: () =>
+        import(/* webpackChunkName: "SignIn" */ "./views/auth/SignIn.vue")
     },
     {
       path: "/new-password",
       name: "NewPassword",
       meta: { redirectIfLoggedIn: true },
-      component: () => import(/* webpackChunkName: "NewPassword" */ "./views/auth/NewPassword.vue")
+      component: () =>
+        import(
+          /* webpackChunkName: "NewPassword" */ "./views/auth/NewPassword.vue"
+        )
     },
     {
       path: "/forgot-password",
       name: "ForgotPassword",
       meta: { redirectIfLoggedIn: true },
-      component: () => import(/* webpackChunkName: "ForgotPassword" */ "./views/auth/ForgotPassword.vue")
+      component: () =>
+        import(
+          /* webpackChunkName: "ForgotPassword" */ "./views/auth/ForgotPassword.vue"
+        )
     },
     {
       path: "/forgot-password-submit",
       name: "ForgotPasswordSubmit",
       meta: { redirectIfLoggedIn: true },
-      component: () => import(/* webpackChunkName: "ForgotPasswordSubmit" */ "./views/auth/ForgotPasswordSubmit.vue")
+      component: () =>
+        import(
+          /* webpackChunkName: "ForgotPasswordSubmit" */ "./views/auth/ForgotPasswordSubmit.vue"
+        )
     },
     {
       path: "/admin/monitors",
       name: "AdminMonitors",
       meta: { requiresAuth: true },
-      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/admin/monitors/List.vue")
+      component: () =>
+        import(
+          /* webpackChunkName: "AdminMonitors" */ "./views/admin/monitors/List.vue"
+        )
     },
     {
       path: "/admin/notifications",
       name: "AdminNotifications",
       meta: { requiresAuth: true },
-      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/admin/notifications/List.vue")
+      component: () =>
+        import(
+          /* webpackChunkName: "AdminMonitors" */ "./views/admin/notifications/List.vue"
+        )
     },
     {
       path: "/logout",
       name: "Logout",
       meta: { requiresAuth: true },
-      component: () => import(/* webpackChunkName: "AdminMonitors" */ "./views/auth/Logout.vue")
+      component: () =>
+        import(
+          /* webpackChunkName: "AdminMonitors" */ "./views/auth/Logout.vue"
+        )
     },
     // {
     //   path: "/destination/:slug",
@@ -95,7 +114,8 @@ const router = new Router({
       path: "/404",
       alias: "*",
       name: "NotFound",
-      component: () => import(/* webpackChunkName: "NotFound" */ "./views/NotFound")
+      component: () =>
+        import(/* webpackChunkName: "NotFound" */ "./views/NotFound")
     }
   ]
 });
@@ -108,7 +128,7 @@ router.beforeResolve(async (to, from, next) => {
         name: "SignIn"
       });
     } else {
-      store.commit('setUser', user);
+      store.commit("setUser", user);
       next();
     }
   }
@@ -125,16 +145,18 @@ router.beforeResolve(async (to, from, next) => {
 });
 
 function getUser() {
-  return Auth.currentAuthenticatedUser().then((user) => {
-    if (user && user.signInUserSession) {
-      return user;
-    } else {
+  return Auth.currentAuthenticatedUser()
+    .then(user => {
+      if (user && user.signInUserSession) {
+        return user;
+      } else {
+        return null;
+      }
+    })
+    .catch(err => {
+      console.log(err);
       return null;
-    }
-  }).catch(err => {
-    console.log(err);
-    return null;
-  });
+    });
 }
 
 export default router;

@@ -1,19 +1,19 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "./App.vue";
 import router from "./router";
-import awsconfig from './aws-exports'
-import Amplify from 'aws-amplify'
-import '@/assets/tailwind.css'
-Amplify.configure(awsconfig)
-import '@aws-amplify/ui-vue';
-import Vuelidate from 'vuelidate'
+import awsconfig from "./aws-exports";
+import Amplify from "aws-amplify";
+import "@/assets/tailwind.css";
+Amplify.configure(awsconfig);
+import "@aws-amplify/ui-vue";
+import Vuelidate from "vuelidate";
 import store from "@/store";
 import Toast from "vue-toastification";
 import "@/assets/notification.css";
-import 'tabler-icons/iconfont/tabler-icons.css';
+import "tabler-icons/iconfont/tabler-icons.css";
 
-Vue.config.productionTip = false
-Vue.use(Vuelidate)
+Vue.config.productionTip = false;
+Vue.use(Vuelidate);
 
 const options = {
   position: "bottom-left",
@@ -50,5 +50,5 @@ Vue.use(Toast, options);
 new Vue({
   router,
   store,
-  render: h => h(App),
-}).$mount('#app')
+  render: h => h(App)
+}).$mount("#app");

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { Auth } from 'aws-amplify';
+import { Auth } from "aws-amplify";
 
 export default {
   name: "Logout",
@@ -12,12 +12,11 @@ export default {
   },
   methods: {
     async logout() {
-      await Auth.signOut({ global: true })
-        .then(() => {
-          this.$toast('Signed out Successfully');
-          this.$router.push({name: "SignIn"})
-        });
+      await Auth.signOut({ global: true }).then(() => {
+        this.$toast("Signed out Successfully");
+        this.$router.push({ name: "SignIn" });
+      });
     }
   }
-}
+};
 </script>

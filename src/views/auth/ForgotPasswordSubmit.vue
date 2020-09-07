@@ -1,11 +1,9 @@
 <template>
-<p>
-
-</p>
+  <p></p>
 </template>
 
 <script>
 export default {
   name: "ForgotPasswordSubmit"
-}
+};
 </script>

@@ -1,11 +1,8 @@
 <template>
-  <auth-layout :heading="heading">
-
-  </auth-layout>
+  <auth-layout :heading="heading"> </auth-layout>
 </template>
 
 <script>
-
 import AuthLayout from "@/layouts/AuthLayout";
 
 export default {
@@ -16,7 +13,7 @@ export default {
   data() {
     return {
       heading: "Forgot your password"
-    }
-  },
-}
+    };
+  }
+};
 </script>
